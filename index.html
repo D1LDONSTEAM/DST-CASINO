@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DST CASINO</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary: #ffaa00; /* Золотисто-оранжевый цвет */
+        --bg-dark: #121214;
+        --panel-bg: rgba(255, 255, 255, 0.05);
+    }
+
+    body {
+        text-align: center;
+        font-family: 'Ubuntu', sans-serif;
+        background: radial-gradient(circle at top, #2a2a35 0%, #121214 100%);
+        color: white;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    h1 {
+        font-family: 'Russo One', sans-serif;
+        font-size: 2.5rem;
+        margin-bottom: 5px;
+        color: var(--primary);
+        text-shadow: 0 0 15px rgba(255, 170, 0, 0.6), 0 0 30px rgba(255, 170, 0, 0.3);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+    
+    .subtitle {
+        color: #aaa;
+        margin-bottom: 25px;
+        font-size: 1.1rem;
+    }
+
+    /* Оформление корпуса рулетки */
+    .casino-machine {
+        background: #1e1e24;
+        padding: 30px;
+        border-radius: 20px;
+        border: 4px solid #333;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(0,0,0,0.8);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .slot {
+        display: flex;
+        justify-content: center;
+        background: #000;
+        padding: 15px;
+        border-radius: 15px;
+        border: 4px solid var(--primary);
+        box-shadow: inset 0 0 20px rgba(0,0,0,1), 0 0 15px rgba(255, 170, 0, 0.3);
+    }
+
+    /* Барабаны */
+    .reel {
+        width: 110px;
+        height: 110px;
+        background: #f8f9fa; /* Светлый фон для контраста фруктов */
+        margin: 0 10px;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: inset 0 5px 15px rgba(0,0,0,0.6);
+    }
+
+    /* Эффект закругления барабана сверху и снизу */
+    .reel::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        box-shadow: inset 0 25px 20px -20px rgba(0,0,0,0.6), inset 0 -25px 20px -20px rgba(0,0,0,0.6);
+        pointer-events: none;
+    }
+
+    .reel-inner {
+        position: absolute;
+        width: 100%;
+    }
+
+    .symbol {
+        height: 110px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 65px;
+        filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+    }
+
+    /* Кнопка */
+    button {
+        margin-top: 30px;
+        padding: 15px 50px;
+        font-family: 'Russo One', sans-serif;
+        font-size: 26px;
+        cursor: pointer;
+        background: linear-gradient(180deg, #ffca28 0%, #ff8f00 100%);
+        color: #111;
+        border: none;
+        border-radius: 35px;
+        text-transform: uppercase;
+        box-shadow: 0 8px 0 #c56000, 0 15px 20px rgba(0,0,0,0.5);
+        transition: all 0.1s ease;
+        letter-spacing: 1px;
+    }
+
+    button:active {
+        transform: translateY(8px);
+        box-shadow: 0 0 0 #c56000, 0 5px 10px rgba(0,0,0,0.5);
+    }
+
+    button:hover {
+        filter: brightness(1.1);
+    }
+
+    /* Результат */
+    #result {
+        margin-top: 20px;
+        font-size: 28px;
+        font-weight: bold;
+        height: 35px; /* Фиксированная высота, чтобы ничего не прыгало */
+        color: #4caf50;
+        text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    }
+
+    /* Статистика */
+    .panel {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .panel p {
+        background: var(--panel-bg);
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin: 0;
+        font-size: 16px;
+        border: 1px solid rgba(255,255,255,0.1);
+        backdrop-filter: blur(5px);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    .panel span {
+        font-weight: bold;
+        color: var(--primary);
+        font-size: 22px;
+        display: block;
+        margin-top: 5px;
+    }
+
+    /* Достижения */
+    .achievements-container {
+        margin-top: 40px;
+        width: 100%;
+        max-width: 600px;
+        background: var(--panel-bg);
+        border-radius: 15px;
+        padding: 20px;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .achievements-container h3 {
+        margin-top: 0;
+        font-family: 'Russo One', sans-serif;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    #achievements {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    .achievement-badge {
+        background: linear-gradient(135deg, #43a047, #2e7d32);
+        padding: 10px 15px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        border: 1px solid #66bb6a;
+        /* Анимация появления */
+        animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes popIn {
+        0% { transform: scale(0); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🎰 DST CASINO 🎰</h1>
+<div class="subtitle">Специально для Kiporiss</div>
+
+<div class="casino-machine">
+    <div class="slot">
+        <div class="reel"><div class="reel-inner" id="r1"></div></div>
+        <div class="reel"><div class="reel-inner" id="r2"></div></div>
+        <div class="reel"><div class="reel-inner" id="r3"></div></div>
+    </div>
+
+    <button onclick="spin()">Крутить</button>
+    <div id="result"></div>
+</div>
+
+<div class="panel">
+    <p>🎯 Прокруток <span id="spins">0</span></p>
+    <p>🏆 Побед <span id="wins">0</span></p>
+    <p>😬 Почти <span id="almost">0</span></p>
+</div>
+
+<div class="achievements-container">
+    <h3>🏆 Достижения</h3>
+    <div id="achievements"></div>
+</div>
+
+<audio id="spinSound" src="spin.mp3"></audio>
+<audio id="winSound" src="win.mp3"></audio>
+<audio id="loseSound" src="lose.mp3"></audio>
+<audio id="almostSound" src="almost.mp3"></audio>
+
+<script>
+// Вся твоя логика осталась нетронутой! 
+const fruits = ["🍎","🍌","🍇","🍒","🍊"];
+const reels = ["r1","r2","r3"];
+
+let stats = {
+    spins: 0,
+    wins: 0,
+    almost: 0,
+    fruitsSeen: new Set(),
+    achievements: new Set()
+};
+
+const spinSound = document.getElementById("spinSound");
+const winSound = document.getElementById("winSound");
+const loseSound = document.getElementById("loseSound");
+const almostSound = document.getElementById("almostSound");
+
+function stopAllSounds() {
+    [spinSound, winSound, loseSound, almostSound].forEach(s => {
+        s.pause();
+        s.currentTime = 0;
+    });
+}
+
+function createReelContent(id) {
+    const reel = document.getElementById(id);
+    reel.innerHTML = "";
+
+    for (let i = 0; i < 20; i++) {
+        const div = document.createElement("div");
+        div.className = "symbol";
+        div.textContent = fruits[Math.floor(Math.random() * fruits.length)];
+        reel.appendChild(div);
+    }
+}
+
+// Заполняем начальными фруктами до первого клика
+reels.forEach(id => {
+    const reel = document.getElementById(id);
+    reel.innerHTML = `<div class="symbol">${fruits[Math.floor(Math.random() * fruits.length)]}</div>`;
+});
+
+function spin() {
+    document.getElementById("result").textContent = "";
+
+    stopAllSounds();
+    if(spinSound.readyState >= 2) spinSound.play().catch(e => console.log("Audio play prevented"));
+
+    stats.spins++;
+    updateStats();
+
+    reels.forEach((id, index) => {
+        createReelContent(id);
+
+        const reel = document.getElementById(id);
+        let position = 0;
+        let speed = 20 + index * 5;
+        let duration = 1000 + index * 500;
+
+        const interval = setInterval(() => {
+            position += speed;
+            reel.style.top = -position + "px";
+        }, 16);
+
+        setTimeout(() => {
+            clearInterval(interval);
+
+            const finalFruit = fruits[Math.floor(Math.random() * fruits.length)];
+            reel.innerHTML = `<div class="symbol">${finalFruit}</div>`;
+            reel.style.top = "0px";
+
+            if (index === 2) {
+                setTimeout(checkResult, 200);
+            }
+
+        }, duration);
+    });
+}
+
+function checkResult() {
+    const r1 = document.getElementById("r1").textContent;
+    const r2 = document.getElementById("r2").textContent;
+    const r3 = document.getElementById("r3").textContent;
+
+    spinSound.pause();
+
+    // 📊 записываем фрукты
+    [r1, r2, r3].forEach(f => stats.fruitsSeen.add(f));
+
+    const result = document.getElementById("result");
+
+    if (r1 === r2 && r2 === r3) {
+        stats.wins++;
+        result.textContent = "🎉 ДЖЕКПОТ! 🎉";
+        result.style.color = "#ffca28";
+        if(winSound.readyState >= 2) winSound.play();
+    } else if (r1 === r2 || r2 === r3 || r1 === r3) {
+        stats.almost++;
+        result.textContent = "👍 Почти!";
+        result.style.color = "#4fc3f7";
+        if(almostSound.readyState >= 2) almostSound.play();
+    } else {
+        result.textContent = "😢 Попробуй снова";
+        result.style.color = "#e57373";
+        if(loseSound.readyState >= 2) loseSound.play();
+    }
+
+    updateStats();
+    checkAchievements();
+}
+
+function updateStats() {
+    document.getElementById("spins").textContent = stats.spins;
+    document.getElementById("wins").textContent = stats.wins;
+    document.getElementById("almost").textContent = stats.almost;
+}
+
+function unlock(name) {
+    if (!stats.achievements.has(name)) {
+        stats.achievements.add(name);
+
+        const div = document.createElement("div");
+        div.className = "achievement-badge"; // Присваиваем класс для стилей
+        div.textContent = "🏆 " + name;
+        document.getElementById("achievements").appendChild(div);
+    }
+}
+
+function checkAchievements() {
+    if (stats.spins >= 10) unlock("Сделать 10 прокруток");
+    if (stats.spins >= 50) unlock("Игроман 😄 (50 прокруток)");
+    if (stats.wins >= 1) unlock("Первая победа!");
+    if (stats.wins >= 5) unlock("Везунчик!");
+    if (stats.almost >= 5) unlock("Почти-почти...");
+    if (stats.fruitsSeen.size === fruits.length) unlock("Коллекционер фруктов 🍓");
+}
+</script>
+
+</body>
+</html>
