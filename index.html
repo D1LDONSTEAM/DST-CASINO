@@ -5,87 +5,130 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DST CASINO</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Exo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
     :root {
-        --primary: #ffaa00; /* Золотисто-оранжевый цвет */
-        --bg-dark: #121214;
-        --panel-bg: rgba(255, 255, 255, 0.05);
+        --bg: #08080b;
+        --surface: #121218;
+        --surface-2: #1a1a22;
+        --line: #26262f;
+        --text: #eef0f4;
+        --muted: #8b8c9a;
+        --pink: #ff2158;
+        --cyan: #18f0e0;
+        --gold: #ffb020;
+        --win: #29e07a;
+        --loss: #ff4d5e;
+        --panel-bg: rgba(255,255,255,0.04);
     }
+
+    *{ box-sizing:border-box; }
 
     body {
         text-align: center;
-    font-family: 'Ubuntu', sans-serif;
-    background: radial-gradient(circle at top, #ffffff 0%, #000000 100%);
-    color: white;
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;    }
+        font-family: 'Exo 2', sans-serif;
+        font-weight: 500;
+        background:
+            radial-gradient(ellipse 800px 500px at 20% -5%, rgba(255,33,88,.16), transparent 60%),
+            radial-gradient(ellipse 800px 500px at 85% 100%, rgba(24,240,224,.12), transparent 60%),
+            var(--bg);
+        color: var(--text);
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        overflow-x: hidden;
+        position: relative;
+    }
 
     h1 {
-        font-family: 'Russo One', sans-serif;
-        font-size: 2.5rem;
-        margin-bottom: 5px;
-        color: #000000;
-        text-shadow: 0 0 15px rgb(0 0 0 / 22%), 0 0 30px rgb(0 0 0);
+        font-family: 'Teko', sans-serif;
+        font-weight: 700;
+        font-size: 3.2rem;
+        margin-bottom: 2px;
+        color: var(--text);
+        background: linear-gradient(100deg, var(--text) 40%, var(--pink) 80%, var(--cyan) 100%);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
         letter-spacing: 2px;
         text-transform: uppercase;
+        line-height: 1;
     }
-    
+
     .subtitle {
-        color: #000000;
+        color: var(--muted);
         margin-bottom: 25px;
         font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: .03em;
     }
 
-    /* Оформление корпуса рулетки 🪵 */
+    /* ---------- Корпус автомата ---------- */
     .casino-machine {
-     background: #1e1e249c;
-    padding: 30px;
-    border-radius: 20px;
-    border: 4px solid #333;
-    box-shadow: 0 15px 40px rgb(0 0 0 / 56%), inset 0 0 20px rgb(0 0 0 / 39%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;    }
+        background: var(--surface);
+        padding: 30px;
+        border-radius: 20px;
+        border: 1px solid var(--line);
+        box-shadow: 0 15px 40px rgba(0,0,0,.55), inset 0 0 20px rgba(0,0,0,.4);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        transition: transform .05s ease;
+    }
+    .casino-machine.shake{ animation: shakeMachine .5s ease; }
+    @keyframes shakeMachine{
+        0%,100%{ transform:translate(0,0); }
+        20%{ transform:translate(-6px,3px); }
+        40%{ transform:translate(6px,-3px); }
+        60%{ transform:translate(-5px,2px); }
+        80%{ transform:translate(5px,-2px); }
+    }
 
     .slot {
-      display: flex;
-    justify-content: center;
-    background: #000;
-    padding: 15px;
-    border-radius: 15px;
-    border: 4px solid #a9a5b1;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 1), 0 0 15px rgb(0 0 0 / 95%);
-}
-    /* Барабаны 🪵 */
+        display: flex;
+        justify-content: center;
+        background: #000;
+        padding: 15px;
+        border-radius: 15px;
+        border: 3px solid var(--line);
+        box-shadow: inset 0 0 20px rgba(0,0,0,1), 0 0 15px rgba(0,0,0,.9);
+        transition: box-shadow .2s ease;
+    }
+    .slot.almost-flash{ animation: almostPulse .8s ease; }
+    @keyframes almostPulse{
+        0%{ box-shadow: inset 0 0 20px rgba(0,0,0,1), 0 0 15px rgba(0,0,0,.9); }
+        30%{ box-shadow: inset 0 0 20px rgba(0,0,0,1), 0 0 40px rgba(24,240,224,.9); }
+        100%{ box-shadow: inset 0 0 20px rgba(0,0,0,1), 0 0 15px rgba(0,0,0,.9); }
+    }
+
+    /* ---------- Барабаны ---------- */
     .reel {
         width: 110px;
         height: 110px;
-        background: #f8f9fa; /* Светлый фон для контраста фруктов */
+        background: var(--surface-2);
         margin: 0 10px;
         border-radius: 10px;
         overflow: hidden;
         position: relative;
         box-shadow: inset 0 5px 15px rgba(0,0,0,0.6);
+        border: 1px solid var(--line);
     }
 
-    /* Эффект закругления барабана сверху и снизу 🪵 */
     .reel::after {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        box-shadow: inset 0 25px 20px -20px rgba(0,0,0,0.6), inset 0 -25px 20px -20px rgba(0,0,0,0.6);
+        box-shadow: inset 0 25px 20px -20px rgba(0,0,0,0.7), inset 0 -25px 20px -20px rgba(0,0,0,0.7);
         pointer-events: none;
     }
 
     .reel-inner {
         position: absolute;
+        left: 0; top: 0;
         width: 100%;
     }
 
@@ -94,91 +137,113 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 65px;
-        filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+        font-size: 60px;
+        filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
     }
 
-    /* Кнопка 🪵 */
-    button {
+    /* ---------- Кнопка ---------- */
+    button#spinBtn {
         margin-top: 30px;
-        padding: 15px 50px;
-        font-family: 'Russo One', sans-serif;
-        font-size: 26px;
+        padding: 14px 52px;
+        font-family: 'Teko', sans-serif;
+        font-weight: 700;
+        font-size: 28px;
         cursor: pointer;
-        background: linear-gradient(180deg, #ffca28 0%, #ff8f00 100%);
-        color: #111;
+        background: var(--pink);
+        color: #0a0a0a;
         border: none;
-        border-radius: 35px;
+        border-radius: 2px;
+        clip-path: polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
         text-transform: uppercase;
-        box-shadow: 0 8px 0 #c56000, 0 15px 20px rgba(0,0,0,0.5);
-        transition: all 0.1s ease;
         letter-spacing: 1px;
+        transition: transform .15s ease, box-shadow .15s ease, opacity .2s ease;
     }
+    button#spinBtn:hover:not(:disabled){ transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,33,88,.4); }
+    button#spinBtn:active:not(:disabled){ transform: translateY(0); }
+    button#spinBtn:disabled{ opacity:.5; cursor:not-allowed; }
 
-    button:active {
-        transform: translateY(8px);
-        box-shadow: 0 0 0 #c56000, 0 5px 10px rgba(0,0,0,0.5);
-    }
-
-    button:hover {
-        filter: brightness(1.1);
-    }
-
-    /* Результат 🪵 */
+    /* ---------- Результат ---------- */
     #result {
         margin-top: 20px;
-        font-size: 28px;
-        font-weight: bold;
-        height: 35px; /* Фиксированная высота, чтобы ничего не прыгало */
-        color: #4caf50;
-        text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        font-family: 'Teko', sans-serif;
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: .02em;
+        height: 36px;
+        color: var(--cyan);
+        text-transform: uppercase;
     }
+    #result.jackpot{ color: var(--pink); }
+    #result.knife-jackpot{ color: var(--gold); }
+    #result.almost{ color: var(--cyan); }
+    #result.lose{ color: var(--loss); text-transform:none; font-family:'Exo 2',sans-serif; font-weight:700; font-size:18px; }
 
-    /* Статистика 🪵 */
+    /* ---------- Статистика ---------- */
     .panel {
         display: flex;
         gap: 15px;
-        margin-top: 20px;
+        margin-top: 24px;
         flex-wrap: wrap;
         justify-content: center;
     }
 
     .panel p {
         background: var(--panel-bg);
-        padding: 15px 20px;
-        border-radius: 12px;
+        padding: 15px 22px;
+        border-radius: 4px;
         margin: 0;
-        font-size: 16px;
-        border: 1px solid rgba(255,255,255,0.1);
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: .04em;
+        color: var(--muted);
+        border: 1px solid var(--line);
         backdrop-filter: blur(5px);
-        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
     }
 
     .panel span {
-        font-weight: bold;
-        color: var(--primary);
-        font-size: 22px;
+        font-family: 'Teko', sans-serif;
+        font-weight: 600;
+        color: var(--pink);
+        font-size: 30px;
         display: block;
-        margin-top: 5px;
+        margin-top: 2px;
     }
 
-    /* Достижения кипо 🪵 */
+    .topup-link{
+        display: inline-block;
+        margin-top: 16px;
+        color: var(--cyan);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: .03em;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color .15s ease, color .15s ease;
+    }
+    .topup-link:hover{ border-color: var(--cyan); }
+    .topup-link.urgent{ color: var(--gold); animation: urgentPulse 1.4s ease-in-out infinite; }
+    @keyframes urgentPulse{ 0%,100%{ opacity:1; } 50%{ opacity:.5; } }
+    @media (prefers-reduced-motion: reduce){ .topup-link.urgent{ animation:none; } }
+
+    /* ---------- Достижения ---------- */
     .achievements-container {
         margin-top: 40px;
         width: 100%;
         max-width: 600px;
         background: var(--panel-bg);
-        border-radius: 15px;
-        padding: 20px;
-        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 4px;
+        padding: 22px;
+        border: 1px solid var(--line);
     }
 
     .achievements-container h3 {
         margin-top: 0;
-        font-family: 'Russo One', sans-serif;
-        color: #fff;
+        font-family: 'Teko', sans-serif;
+        font-weight: 600;
+        font-size: 22px;
+        color: var(--text);
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: .05em;
     }
 
     #achievements {
@@ -190,14 +255,17 @@
     }
 
     .achievement-badge {
-        background: linear-gradient(135deg, #43a047, #2e7d32);
-        padding: 10px 15px;
+        background: linear-gradient(135deg, rgba(255,33,88,.18), rgba(24,240,224,.14));
+        border: 1px solid var(--line);
+        padding: 9px 15px;
         border-radius: 20px;
-        font-size: 14px;
-        font-weight: bold;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        border: 1px solid #66bb6a;
-        /* Анимация появления */
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text);
+        max-width: 260px;
+        text-align: left;
+        line-height: 1.3;
+        word-break: break-word;
         animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
 
@@ -205,35 +273,64 @@
         0% { transform: scale(0); opacity: 0; }
         100% { transform: scale(1); opacity: 1; }
     }
+
+    /* ---------- Эффекты побед ---------- */
+    .flash-overlay{
+        position: fixed; inset: 0; pointer-events: none; z-index: 50;
+        opacity: 0; transition: opacity .12s ease;
+    }
+    .flash-overlay.active{ opacity: 1; transition: opacity .05s ease; }
+    .flash-overlay.jackpot{ background: radial-gradient(circle at 50% 45%, rgba(255,33,88,.35), transparent 60%); }
+    .flash-overlay.knife{ background: radial-gradient(circle at 50% 45%, rgba(255,176,32,.5), transparent 65%); }
+
+    .confetti-piece{
+        position: fixed; top: -20px; z-index: 60; pointer-events: none;
+        width: 8px; height: 14px; border-radius: 2px;
+        animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall{
+        0%{ transform: translateY(0) rotate(0deg); opacity: 1; }
+        100%{ transform: translateY(100vh) rotate(540deg); opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+        .casino-machine.shake, .slot.almost-flash, .achievement-badge{ animation: none; }
+        .confetti-piece{ display: none; }
+    }
 </style>
 </head>
 
 <body>
 
-<h1> DST D1LDOCOIN </h1>
+<h1>DST D1LDOCOIN</h1>
 <div class="subtitle">Специально для Kiporisz</div>
 
-<div class="casino-machine">
-    <div class="slot">
+<div class="casino-machine" id="machine">
+    <div class="slot" id="slot">
         <div class="reel"><div class="reel-inner" id="r1"></div></div>
         <div class="reel"><div class="reel-inner" id="r2"></div></div>
         <div class="reel"><div class="reel-inner" id="r3"></div></div>
     </div>
 
-    <button onclick="spin()">Крутить</button>
+    <button id="spinBtn" onclick="spin()">Крутить</button>
     <div id="result"></div>
 </div>
 
 <div class="panel">
+    <p>💰 Баланс <span id="balance">0</span></p>
     <p>🎯 Прокруток <span id="spins">0</span></p>
     <p>🏆 Побед <span id="wins">0</span></p>
     <p>😬 Додепов <span id="almost">0</span></p>
 </div>
 
+<a href="tap.html" id="topupLink" class="topup-link">💸 Пополнить баланс (тапалка) →</a>
+
 <div class="achievements-container">
     <h3>🏆 Достижения</h3>
     <div id="achievements"></div>
 </div>
+
+<div class="flash-overlay" id="flashOverlay"></div>
 
 <audio id="spinSound" src="spin.mp3"></audio>
 <audio id="winSound" src="win.mp3"></audio>
@@ -241,15 +338,49 @@
 <audio id="almostSound" src="almost.mp3"></audio>
 
 <script>
-// Вся твоя логика- ты отдашся натурой🪵!  
-const fruits = ["🍎","🍌","🍇","🍒","🍊"];
-const reels = ["r1","r2","r3"];
+// ---------- Символы (CS2-тематика, нож — редкий) ----------
+const symbolPool = [
+    { emoji: "🔫", weight: 28 },
+    { emoji: "🎯", weight: 28 },
+    { emoji: "💣", weight: 22 },
+    { emoji: "☠️", weight: 17 },
+    { emoji: "🔪", weight: 5 }
+];
+const RARE_SYMBOL = "🔪";
+const allSymbols = symbolPool.map(s => s.emoji);
+const reels = ["r1", "r2", "r3"];
+const SYMBOL_HEIGHT = 110;
+const STRIP_LENGTH = 24;
+const SPIN_COST = 10;
+const BALANCE_KEY = "dstCasinoBalance";
+const START_BALANCE = 50;
+
+let spinning = false;
+
+function loadBalance() {
+    try {
+        const saved = localStorage.getItem(BALANCE_KEY);
+        if (saved === null) {
+            localStorage.setItem(BALANCE_KEY, START_BALANCE);
+            return START_BALANCE;
+        }
+        return parseInt(saved, 10) || 0;
+    } catch (e) {
+        return START_BALANCE;
+    }
+}
+
+function saveBalance(value) {
+    try { localStorage.setItem(BALANCE_KEY, value); } catch (e) {}
+}
+
+let balance = loadBalance();
 
 let stats = {
     spins: 0,
     wins: 0,
     almost: 0,
-    fruitsSeen: new Set(),
+    symbolsSeen: new Set(),
     achievements: new Set()
 };
 
@@ -257,6 +388,13 @@ const spinSound = document.getElementById("spinSound");
 const winSound = document.getElementById("winSound");
 const loseSound = document.getElementById("loseSound");
 const almostSound = document.getElementById("almostSound");
+const machine = document.getElementById("machine");
+const slotEl = document.getElementById("slot");
+const resultEl = document.getElementById("result");
+const spinBtn = document.getElementById("spinBtn");
+const flashOverlay = document.getElementById("flashOverlay");
+const balanceEl = document.getElementById("balance");
+const topupLink = document.getElementById("topupLink");
 
 function stopAllSounds() {
     [spinSound, winSound, loseSound, almostSound].forEach(s => {
@@ -265,87 +403,148 @@ function stopAllSounds() {
     });
 }
 
-function createReelContent(id) {
-    const reel = document.getElementById(id);
-    reel.innerHTML = "";
-
-    for (let i = 0; i < 20; i++) {
-        const div = document.createElement("div");
-        div.className = "symbol";
-        div.textContent = fruits[Math.floor(Math.random() * fruits.length)];
-        reel.appendChild(div);
+function weightedRandomSymbol() {
+    const total = symbolPool.reduce((sum, s) => sum + s.weight, 0);
+    let r = Math.random() * total;
+    for (const s of symbolPool) {
+        if (r < s.weight) return s.emoji;
+        r -= s.weight;
     }
+    return symbolPool[0].emoji;
 }
 
-// Заполняем начальными фруктами до первого клика 🪵
+// Начальное заполнение барабанов до первого клика
 reels.forEach(id => {
     const reel = document.getElementById(id);
-    reel.innerHTML = `<div class="symbol">${fruits[Math.floor(Math.random() * fruits.length)]}</div>`;
+    reel.innerHTML = `<div class="symbol">${weightedRandomSymbol()}</div>`;
 });
 
+updateBalanceUI();
+
+function buildAndAnimateReel(id, finalSymbol, index) {
+    const reelInner = document.getElementById(id);
+
+    const strip = [];
+    for (let i = 0; i < STRIP_LENGTH - 1; i++) strip.push(weightedRandomSymbol());
+    strip.push(finalSymbol);
+
+    reelInner.style.transition = "none";
+    reelInner.style.transform = "translateY(0)";
+    reelInner.innerHTML = strip.map(s => `<div class="symbol">${s}</div>`).join("");
+
+    // форсируем reflow, чтобы transition применился к новой прокрутке
+    void reelInner.offsetHeight;
+
+    const duration = 1200 + index * 450;
+    const finalOffset = (STRIP_LENGTH - 1) * SYMBOL_HEIGHT;
+
+    requestAnimationFrame(() => {
+        reelInner.style.transition = `transform ${duration}ms cubic-bezier(0.12,0.85,0.28,1)`;
+        reelInner.style.transform = `translateY(-${finalOffset}px)`;
+    });
+
+    return duration;
+}
+
 function spin() {
-    document.getElementById("result").textContent = "";
+    if (spinning) return;
+    if (balance < SPIN_COST) {
+        resultEl.textContent = "😬 Недостаточно D1LDOCOIN — иди тапай";
+        resultEl.className = "lose";
+        return;
+    }
+
+    spinning = true;
+    spinBtn.disabled = true;
+
+    balance -= SPIN_COST;
+    saveBalance(balance);
+    updateBalanceUI();
+
+    resultEl.textContent = "";
+    resultEl.className = "";
 
     stopAllSounds();
-    if(spinSound.readyState >= 2) spinSound.play().catch(e => console.log("Audio play prevented"));
+    if (spinSound.readyState >= 2) spinSound.play().catch(() => {});
 
     stats.spins++;
     updateStats();
 
+    const finals = [weightedRandomSymbol(), weightedRandomSymbol(), weightedRandomSymbol()];
+    let maxDuration = 0;
     reels.forEach((id, index) => {
-        createReelContent(id);
-
-        const reel = document.getElementById(id);
-        let position = 0;
-        let speed = 20 + index * 5;
-        let duration = 1000 + index * 500;
-
-        const interval = setInterval(() => {
-            position += speed;
-            reel.style.top = -position + "px";
-        }, 16);
-
-        setTimeout(() => {
-            clearInterval(interval);
-
-            const finalFruit = fruits[Math.floor(Math.random() * fruits.length)];
-            reel.innerHTML = `<div class="symbol">${finalFruit}</div>`;
-            reel.style.top = "0px";
-
-            if (index === 2) {
-                setTimeout(checkResult, 200);
-            }
-
-        }, duration);
+        const d = buildAndAnimateReel(id, finals[index], index);
+        if (d > maxDuration) maxDuration = d;
     });
+
+    setTimeout(() => {
+        checkResult(finals);
+        spinning = false;
+        spinBtn.disabled = balance < SPIN_COST;
+    }, maxDuration + 150);
 }
 
-function checkResult() {
-    const r1 = document.getElementById("r1").textContent;
-    const r2 = document.getElementById("r2").textContent;
-    const r3 = document.getElementById("r3").textContent;
+function updateBalanceUI() {
+    balanceEl.textContent = balance;
+    const low = balance < SPIN_COST;
+    topupLink.classList.toggle("urgent", low);
+    spinBtn.disabled = spinning ? true : low;
+}
 
+function flashScreen(kind) {
+    flashOverlay.className = "flash-overlay " + kind + " active";
+    setTimeout(() => { flashOverlay.className = "flash-overlay " + kind; }, 160);
+}
+
+function launchConfetti(count, colors) {
+    for (let i = 0; i < count; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti-piece";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDuration = (1.6 + Math.random() * 1.2) + "s";
+        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 3000);
+    }
+}
+
+function checkResult(finals) {
+    const [r1, r2, r3] = finals;
     spinSound.pause();
 
-    // 📊 записываем фрукты 🪵
-    [r1, r2, r3].forEach(f => stats.fruitsSeen.add(f));
-
-    const result = document.getElementById("result");
+    finals.forEach(f => stats.symbolsSeen.add(f));
 
     if (r1 === r2 && r2 === r3) {
         stats.wins++;
-        result.textContent = "🎉 ДЖЕКПОТ! 🎉";
-        result.style.color = "#ffca28";
-        if(winSound.readyState >= 2) winSound.play();
+        const isRare = r1 === RARE_SYMBOL;
+
+        if (isRare) {
+            resultEl.textContent = "🔪 РЕДКИЙ ДЖЕКПОТ! 🔪";
+            resultEl.className = "knife-jackpot";
+            flashScreen("knife");
+            machine.classList.add("shake");
+            setTimeout(() => machine.classList.remove("shake"), 500);
+            launchConfetti(70, ["var(--gold)", "var(--pink)", "var(--cyan)", "#ffe27a"]);
+            if (winSound.readyState >= 2) winSound.play();
+        } else {
+            resultEl.textContent = "🎉 ДЖЕКПОТ! 🎉";
+            resultEl.className = "jackpot";
+            flashScreen("jackpot");
+            launchConfetti(40, ["var(--pink)", "var(--cyan)"]);
+            if (winSound.readyState >= 2) winSound.play();
+        }
     } else if (r1 === r2 || r2 === r3 || r1 === r3) {
         stats.almost++;
-        result.textContent = "👍 Блять!";
-        result.style.color = "#4fc3f7";
-        if(almostSound.readyState >= 2) almostSound.play();
+        resultEl.textContent = "👍 Блять!";
+        resultEl.className = "almost";
+        slotEl.classList.add("almost-flash");
+        setTimeout(() => slotEl.classList.remove("almost-flash"), 800);
+        if (almostSound.readyState >= 2) almostSound.play();
     } else {
-        result.textContent = "😢 Требуется додеп";
-        result.style.color = "#e57373";
-        if(loseSound.readyState >= 2) loseSound.play();
+        resultEl.textContent = "😢 Требуется додеп";
+        resultEl.className = "lose";
+        if (loseSound.readyState >= 2) loseSound.play();
     }
 
     updateStats();
@@ -361,9 +560,8 @@ function updateStats() {
 function unlock(name) {
     if (!stats.achievements.has(name)) {
         stats.achievements.add(name);
-
         const div = document.createElement("div");
-        div.className = "achievement-badge"; // Присваиваем класс для стилей
+        div.className = "achievement-badge";
         div.textContent = "🏆 " + name;
         document.getElementById("achievements").appendChild(div);
     }
@@ -375,12 +573,14 @@ function checkAchievements() {
     if (stats.wins >= 1) unlock("еееесть блять (1 победа)");
     if (stats.wins >= 5) unlock("Везунчик!");
     if (stats.almost >= 5) unlock("Почти-ДОДЕП...");
-    if (stats.fruitsSeen.size === fruits.length) unlock("Коллекционер фруктов 🍓");
+    if (stats.symbolsSeen.size === allSymbols.length) unlock("Коллекционер арсенала 🔫");
     if (stats.almost >= 1000) unlock("Король додэпа (больше 1000 додепов)");
     if (stats.wins >= 67) unlock("ъэ 67 хэхъэ  (победа побед👀)");
     if (stats.spins >= 1) unlock("Начало лудоприключения");
     if (stats.spins >= 10000) unlock("Квартира админа в центре москвы♿ (10000 прокруток)");
-    if (stats.spins >= 1) unlock("Ебать ты пень🪵 (случайности не случайны)")
+    if (stats.spins >= 1) unlock("Ебать ты пень🪵 (случайности не случайны)");
 }
 </script>
-🪵
+
+</body>
+</html>
