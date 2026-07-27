@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тапалка — DST D1LDOCOIN</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Exo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --bg: #08080b;
+        --surface: #121218;
+        --line: #26262f;
+        --text: #eef0f4;
+        --muted: #8b8c9a;
+        --pink: #ff2158;
+        --cyan: #18f0e0;
+    }
+
+    *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+
+    body {
+        text-align: center;
+        font-family: 'Exo 2', sans-serif;
+        font-weight: 500;
+        background:
+            radial-gradient(ellipse 800px 500px at 20% -5%, rgba(255,33,88,.16), transparent 60%),
+            radial-gradient(ellipse 800px 500px at 85% 100%, rgba(24,240,224,.12), transparent 60%),
+            var(--bg);
+        color: var(--text);
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        overflow: hidden;
+        user-select: none;
+    }
+
+    h1 {
+        font-family: 'Teko', sans-serif;
+        font-weight: 700;
+        font-size: 2.4rem;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .subtitle{ color: var(--muted); font-size: .95rem; margin-bottom: 30px; }
+
+    .balance-display{
+        font-family: 'Teko', sans-serif;
+        font-size: 4.4rem;
+        font-weight: 700;
+        color: var(--pink);
+        line-height: 1;
+        margin-bottom: 6px;
+        transition: transform .08s ease;
+    }
+    .balance-display.pop{ transform: scale(1.12); }
+    .balance-label{ color: var(--muted); font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 36px; }
+
+    #tapBtn{
+        width: 220px; height: 220px; border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, var(--pink), #8a0f30 85%);
+        border: none; color: #fff;
+        font-family: 'Teko', sans-serif; font-size: 34px; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 1px;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(255,33,88,.4), inset 0 -6px 14px rgba(0,0,0,.35);
+        transition: transform .06s ease, box-shadow .06s ease;
+        -webkit-user-select: none;
+    }
+    #tapBtn:active{
+        transform: scale(0.94);
+        box-shadow: 0 4px 14px rgba(255,33,88,.4), inset 0 -3px 8px rgba(0,0,0,.4);
+    }
+
+    .plus-one{
+        position: fixed; pointer-events: none; z-index: 10;
+        font-family: 'Teko', sans-serif; font-size: 26px; font-weight: 700;
+        color: var(--cyan);
+        animation: floatUp .7s ease-out forwards;
+    }
+    @keyframes floatUp{
+        0%{ transform: translateY(0); opacity: 1; }
+        100%{ transform: translateY(-60px); opacity: 0; }
+    }
+
+    .back-link{
+        margin-top: 40px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: color .15s ease, border-color .15s ease;
+    }
+    .back-link:hover{ color: var(--cyan); border-color: var(--cyan); }
+
+    @media (prefers-reduced-motion: reduce){
+        .balance-display.pop{ transform:none; }
+        .plus-one{ animation: none; opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+<h1>Тапалка D1LDOCOIN</h1>
+<div class="subtitle">Каждый тап — 1 D1LDOCOIN на баланс в казино</div>
+
+<div class="balance-display" id="balanceDisplay">0</div>
+<div class="balance-label">D1LDOCOIN</div>
+
+<button id="tapBtn">Тапни</button>
+
+<a href="index.html" class="back-link">← Назад в казино</a>
+
+<script>
+    const BALANCE_KEY = "dstCasinoBalance";
+    const START_BALANCE = 50;
+
+    function loadBalance() {
+        try {
+            const saved = localStorage.getItem(BALANCE_KEY);
+            if (saved === null) {
+                localStorage.setItem(BALANCE_KEY, START_BALANCE);
+                return START_BALANCE;
+            }
+            return parseInt(saved, 10) || 0;
+        } catch (e) {
+            return START_BALANCE;
+        }
+    }
+    function saveBalance(value) {
+        try { localStorage.setItem(BALANCE_KEY, value); } catch (e) {}
+    }
+
+    let balance = loadBalance();
+    const balanceDisplay = document.getElementById("balanceDisplay");
+    const tapBtn = document.getElementById("tapBtn");
+
+    balanceDisplay.textContent = balance;
+
+    function spawnPlusOne(x, y) {
+        const el = document.createElement("div");
+        el.className = "plus-one";
+        el.textContent = "+1";
+        el.style.left = (x - 12) + "px";
+        el.style.top = (y - 20) + "px";
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 700);
+    }
+
+    function tap(e) {
+        balance++;
+        saveBalance(balance);
+        balanceDisplay.textContent = balance;
+        balanceDisplay.classList.add("pop");
+        setTimeout(() => balanceDisplay.classList.remove("pop"), 90);
+
+        const point = e.touches ? e.touches[0] : e;
+        spawnPlusOne(point.clientX, point.clientY);
+    }
+
+    tapBtn.addEventListener("click", tap);
+</script>
+
+</body>
+</html>
