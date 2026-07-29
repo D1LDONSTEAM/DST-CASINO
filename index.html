@@ -509,6 +509,43 @@ function launchConfetti(count, colors) {
     }
 }
 
+function changeBalance(delta, label) {
+    balance += delta;
+    if (balance < 0) balance = 0;
+    saveBalance(balance);
+    updateBalanceUI();
+
+    // Показываем всплывающий текст +50 / -5 / +1000
+    const sign = delta > 0 ? "+" : "";
+    const popup = document.createElement("div");
+    popup.textContent = sign + delta + " D1LDOCOIN";
+    popup.style.cssText = `
+        position:fixed; left:50%; top:38%;
+        transform:translateX(-50%);
+        font-family:'Teko',sans-serif; font-size:32px; font-weight:700;
+        color:${delta > 0 ? "var(--cyan)" : "var(--loss)"};
+        pointer-events:none; z-index:100;
+        animation:balancePopup 1.4s ease-out forwards;
+        white-space:nowrap;
+    `;
+    document.body.appendChild(popup);
+    setTimeout(() => popup.remove(), 1400);
+}
+
+// Добавляем keyframes для popup если ещё нет
+(function(){
+    if(document.getElementById('balancePopupStyle')) return;
+    const s = document.createElement('style');
+    s.id = 'balancePopupStyle';
+    s.textContent = `@keyframes balancePopup{
+        0%{opacity:0;transform:translateX(-50%) translateY(0) scale(.8);}
+        15%{opacity:1;transform:translateX(-50%) translateY(-10px) scale(1.1);}
+        70%{opacity:1;transform:translateX(-50%) translateY(-30px) scale(1);}
+        100%{opacity:0;transform:translateX(-50%) translateY(-60px) scale(.9);}
+    }`;
+    document.head.appendChild(s);
+})();
+
 function checkResult(finals) {
     const [r1, r2, r3] = finals;
     spinSound.pause();
@@ -520,7 +557,8 @@ function checkResult(finals) {
         const isRare = r1 === RARE_SYMBOL;
 
         if (isRare) {
-            resultEl.textContent = "🔪 РЕДКИЙ ДЖЕКПОТ! 🔪";
+            changeBalance(1000, "РЕДКИЙ ДЖЕКПОТ");
+            resultEl.textContent = "🔪 РЕДКИЙ ДЖЕКПОТ! +1000 🪙";
             resultEl.className = "knife-jackpot";
             flashScreen("knife");
             machine.classList.add("shake");
@@ -528,7 +566,8 @@ function checkResult(finals) {
             launchConfetti(70, ["var(--gold)", "var(--pink)", "var(--cyan)", "#ffe27a"]);
             if (winSound.readyState >= 2) winSound.play();
         } else {
-            resultEl.textContent = "🎉 ДЖЕКПОТ! 🎉";
+            changeBalance(50, "ДЖЕКПОТ");
+            resultEl.textContent = "🎉 ДЖЕКПОТ! +50 🪙";
             resultEl.className = "jackpot";
             flashScreen("jackpot");
             launchConfetti(40, ["var(--pink)", "var(--cyan)"]);
@@ -542,7 +581,8 @@ function checkResult(finals) {
         setTimeout(() => slotEl.classList.remove("almost-flash"), 800);
         if (almostSound.readyState >= 2) almostSound.play();
     } else {
-        resultEl.textContent = "😢 Требуется додеп";
+        changeBalance(-5, "ДОДЕП");
+        resultEl.textContent = "😢 Требуется додеп  -5 🪙";
         resultEl.className = "lose";
         if (loseSound.readyState >= 2) loseSound.play();
     }
