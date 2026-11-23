@@ -1,332 +1,438 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DST CASINO</title>
+<title>D1LDONS TEAM | CS2</title>
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="image.png">
+<script>
+(function () {
+  var d = document.documentElement, n = navigator, c = n.connection || {};
+  d.className += ' js';
+  // «Облегчённый» режим: телефоны, сенсорные экраны, слабые устройства, экономия трафика
+  var lite = (window.matchMedia && matchMedia('(pointer:coarse)').matches) || window.innerWidth <= 860 ||
+    (n.deviceMemory && n.deviceMemory <= 4) || (n.hardwareConcurrency && n.hardwareConcurrency <= 4) || c.saveData;
+  if (lite) d.className += ' lite';
+})();
+</script>
+
+<!-- SEO -->
+<meta name="google-site-verification" content="IWuz9sOUUEmOnU_aYL1xTTpv0neCDigroC9-tilS-Aw">
+<meta name="description" content="D1LDONS TEAM — любительская CS2 команда из России. Состав, статистика сезона, лучшие моменты с карт.">
+<meta name="keywords" content="D1LDONS, d1ldons team, CS2, команда, roster, faceit, counter-strike 2, esports">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://d1ldonsteam.github.io/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="D1LDONS TEAM | CS2">
+<meta property="og:description" content="Официальный сайт D1LDONS TEAM — состав, статистика и лучшие моменты.">
+<meta property="og:url" content="https://d1ldonsteam.github.io/">
+<meta property="og:image" content="https://d1ldonsteam.github.io/image.png">
+<meta property="og:locale" content="ru_RU">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="D1LDONS TEAM | CS2">
+<meta name="twitter:description" content="Официальный сайт D1LDONS TEAM — состав, статистика и лучшие моменты.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=2.4">
+<link rel="stylesheet" href="theme.css?v=2.4">
+<link rel="stylesheet" href="enhancements.css?v=2.6">
+<link rel="stylesheet" href="pause.css?v=1.0">
 </head>
-
 <body>
 
-<h1>DST D1LDOCOIN</h1>
-<div class="subtitle">Специально для Kiporisz</div>
+<!-- PAGE LOADER -->
+<div class="page-loader" id="pageLoader">
+  <div class="loader-inner">
+    <img src="image.png" alt="" class="loader-logo" width="56" height="56">
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <div class="loader-text">Загрузка</div>
+  </div>
+</div>
 
-<div class="casino-machine" id="machine">
-    <div class="slot" id="slot">
-        <div class="reel"><div class="reel-inner" id="r1"></div></div>
-        <div class="reel"><div class="reel-inner" id="r2"></div></div>
-        <div class="reel"><div class="reel-inner" id="r3"></div></div>
+<div class="sky" aria-hidden="true">
+  <canvas class="sky-plasma" id="plasmaCanvas"></canvas>
+  <span class="sky-tint"></span>
+</div>
+
+<div class="bg-blur" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<header>
+  <nav class="wrap">
+    <a class="brand" href="#top">
+      <img src="image.png" alt="D1LDONS TEAM logo">
+      <span class="shiny-text">D1LDONS</span>
+    </a>
+    <div class="navlinks" id="navlinks">
+      <a href="#about">О команде</a>
+      <a href="#stats">Статистика</a>
+      <a href="#results">Результаты</a>
+      <a href="#roster">Состав</a>
+      <a href="#gallery">Галерея</a>
+      <a href="#support">Поддержка</a>
+    </div>
+    <div class="header-actions">
+      <button class="sfx-pill" id="sfxToggle" type="button" aria-pressed="false" title="Переключить звуковые эффекты">SFX: OFF</button>
+      <a class="nav-pill" href="https://t.me/DLST_Esport" target="_blank" rel="noopener">Contact</a>
+    </div>
+    <button class="burger" id="burgerBtn" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="navlinks">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <div class="hero-badge"><span class="badge-dot"></span> <span class="shiny-text">SEASON ACTIVE · MATCH READY</span></div>
+      <span class="eyebrow">Counter-Strike 2 · Roster</span>
+      <h1 class="hero-title"><span class="line"><span>D1LDONS</span></span><span class="line"><span>TEAM</span></span></h1>
+      <p class="sub">Любительская CS2-команда из России: пять игроков, Premier и FACEIT.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#results">Результаты сезона</a>
+        <a class="btn btn-ghost" href="#roster">Состав команды</a>
+      </div>
+    </div>
+    <ul class="hero-meta reveal">
+      <li>— Команда: <b>D1LDONS TEAM</b></li>
+      <li>— Дисциплина: <b>Counter-Strike 2</b></li>
+      <li>— Сезон: <b>Premier S4 · FACEIT S8</b></li>
+      <li>— Состав: <b>5 игроков</b></li>
+      <li>— Время: <b><span id="clock">--:--</span> MSK</b></li>
+      <li><a class="btn btn-ghost" href="https://t.me/DLST_Esport" target="_blank" rel="noopener">Contact us</a></li>
+    </ul>
+  </div>
+</section>
+
+<div class="ticker-outer" aria-label="Ключевые факты о команде">
+  <div class="ticker-track">
+    <span class="tick-item"><span class="tag">PREMIER</span> Сезон 4 · 647 матчей · win rate 51% · K/D 0.98</span>
+    <span class="tick-item"><span class="tag">FACEIT</span> Сезон 8 · 87 матчей · win rate 65.5% · ADR 76.5</span>
+    <span class="tick-item"><span class="tag">СОСТАВ</span> 5 игроков</span>
+    <span class="tick-item"><span class="tag">ЦЕЛЬ</span> Региональные турниры в 2026</span>
+    <span class="tick-item"><span class="tag">PREMIER</span> Сезон 4 · 647 матчей · win rate 51% · K/D 0.98</span>
+    <span class="tick-item"><span class="tag">FACEIT</span> Сезон 8 · 87 матчей · win rate 65.5% · ADR 76.5</span>
+    <span class="tick-item"><span class="tag">СОСТАВ</span> 5 игроков</span>
+    <span class="tick-item"><span class="tag">ЦЕЛЬ</span> Региональные турниры в 2026</span>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">01 / О команде</span>
+      <h2>О команде</h2>
+      
+    </div>
+    <div class="about-grid reveal-group">
+      <div class="about-panel panel reveal-item">
+        <p>D1LDONS TEAM — любительская CS2-команда из России. Играем через давление на ранних этапах карты и работу в закрытых позициях.</p>
+        <ul class="about-list">
+          <li>Игровой стиль</li>
+          <li>Командная химия</li>
+          <li>Контроль карт</li>
+          <li>Работа в клинче</li>
+        </ul>
+      </div>
+      <div class="about-card panel reveal-item">
+        <div class="mini-label">Основная цель</div>
+        <h3>2026</h3>
+        <p>Не закрыться до следующего понедельника.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">02 / CS2 Premier · Сезон 4</span>
+      <h2>Статистика</h2>
+      
+    </div>
+    <div class="stat-grid reveal-group">
+      <div class="stat-card reveal-item">
+        <div class="num" data-target="51" data-decimals="0" data-suffix="%">51%</div>
+        <div class="lbl">Средний Win rate</div>
+      </div>
+      <div class="stat-card reveal-item">
+        <div class="num" data-target="0.98" data-decimals="2">0.98</div>
+        <div class="lbl">Средний K/D</div>
+      </div>
+      <div class="stat-card reveal-item">
+        <div class="num" data-target="647" data-decimals="0">647</div>
+        <div class="lbl">Матчей сыграно</div>
+      </div>
+      <div class="stat-card reveal-item">
+        <div class="num" data-target="10063" data-decimals="0" data-grouped="true">10&nbsp;063</div>
+        <div class="lbl">Средний пик рейтинга</div>
+      </div>
+    </div>
+    <p class="stat-note">Данные — CS2 Premier, Сезон 4, весь основной состав.</p>
+  </div>
+</section>
+
+<section id="faceit-stats">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">03 / FACEIT · Сезон 8</span>
+      <h2>FACEIT</h2>
+      
+    </div>
+    <div class="stat-grid reveal-group">
+      <div class="stat-card reveal-item">
+        <div class="num" data-target="65.5" data-decimals="1" data-suffix="%">65.5%</div>
+        <div class="lbl">Средний Win rate</div>
+      </div>
+      <div class="stat-card reveal-item">
+        <div class="num" data-target="1.04" data-decimals="2">1.04</div>
+        <div class="lbl">Средний K/D</div>
+      </div>
+      <div class="stat-card reveal-item">
+        <div class="num" data-target="87" data-decimals="0">87</div>
+        <div class="lbl">Матчей сыграно</div>
+      </div>
+      <div class="stat-card reveal-item">
+        <div class="num" data-target="76.5" data-decimals="1">76.5</div>
+        <div class="lbl">Средний ADR</div>
+      </div>
+    </div>
+    <p class="stat-note">Данные — FACEIT, Сезон 8. Win rate и K/D — среднее по Hell7Staf и От4Им.</p>
+  </div>
+</section>
+
+<section id="results">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">04 / Результаты</span>
+      <h2>Результаты</h2>
+      
+    </div>
+    <div class="results-grid reveal-group">
+      <div class="result-card reveal-item">
+        <div class="mini-label">CS2 Premier</div>
+        <h3>51%</h3>
+        <p>Средний win rate в CS2 Premier, сезон 4.</p>
+      </div>
+      <div class="result-card reveal-item">
+        <div class="mini-label">Региональные турниры</div>
+        <h3>3</h3>
+        <p>Плановые участия в отборочных и открытых локальных соревнованиях.</p>
+      </div>
+      <div class="result-card reveal-item">
+        <div class="mini-label">Командная работа</div>
+        <h3>100%</h3>
+        <p>Фокус на синхронизации пятёрки, роли и принятии решений в ключевых раундах.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="road">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">05 / Планы команды</span>
+      <h2>Цели</h2>
+      
+    </div>
+    <div class="timeline reveal-group">
+      <div class="tl-item reveal-item">
+        <div class="tl-marker">01</div>
+        <div class="tl-content">
+          <h3>Усилить стабильность в ранних раундах</h3>
+          <p>Сокращать колебания в старте карты и переводить больше матчей в привычный темп игры команды.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal-item">
+        <div class="tl-marker">02</div>
+        <div class="tl-content">
+          <h3>Поднять эффективность в турнирах</h3>
+          <p>Стабилизировать результаты в соревновательной среде и повышать качество закрытия ключевых серий.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal-item">
+        <div class="tl-marker">03</div>
+        <div class="tl-content">
+          <h3>Расширить сообщество и партнёрства</h3>
+          <p>Развивать Telegram, Steam-группу и взаимодействие с сообществом, спонсорами и партнёрами.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="roster">
+  <span id="online" aria-hidden="true"></span>
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">06 / Основной состав · Сейчас в сети</span>
+      <h2>Состав</h2>
+      
     </div>
 
-    <button id="spinBtn" onclick="spin()">Крутить</button>
-    <div id="result"></div>
-</div>
+    <div class="car-tabs" id="carTabs" role="group" aria-label="Быстрый выбор игрока"></div>
 
-<div class="panel">
-    <p>Баланс <span id="balance">0</span></p>
-    <p>Прокруток <span id="spins">0</span></p>
-    <p>Побед <span id="wins">0</span></p>
-    <p>Додепов <span id="almost">0</span></p>
-</div>
+    <div class="stage" id="stage" aria-roledescription="карусель" aria-label="Карточки игроков">
+      <noscript><div class="panel">Для просмотра карточек игроков включите JavaScript.</div></noscript>
+    </div>
 
-<a href="tap.html" id="topupLink" class="topup-link">💸 Пополнить баланс (тапалка) →</a>
+    <div class="car-ui">
+      <button class="car-btn" id="carPrev" type="button">← Пред. игрок</button>
+      <span class="car-count" id="carCount">01 / 05</span>
+      <button class="car-btn" id="carNext" type="button">След. игрок →</button>
+    </div>
+    <div class="sr-only" id="carLive" aria-live="polite"></div>
+  </div>
+</section>
 
-<div class="achievements-container">
-    <h3>Достижения</h3>
-    <div id="achievements"></div>
-</div>
+<section id="gallery">
+  <span id="highlights" aria-hidden="true"></span>
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">07 / Галерея</span>
+      <h2>Галерея</h2>
+      <!-- gallery-subtitle-removed  клипы и скрины  -->
+    </div>
 
-<div class="flash-overlay" id="flashOverlay"></div>
+    <!--
+      Как добавить скриншот: скопируйте блок <div class="reveal-item">…</div> ниже, поставьте
+      data-type="image", в data-src укажите файл, в <img class="gal-thumb"> — тот же файл
+      (тег <video class="gal-preview"> для картинки удалите). Клип: data-type="video", data-src="файл.mp4",
+      data-poster="постер.jpg".
+    -->
+    <div class="gal-grid reveal-group">
 
-<audio id="spinSound" src="spin.mp3"></audio>
-<audio id="winSound" src="win.mp3"></audio>
-<audio id="loseSound" src="lose.mp3"></audio>
-<audio id="almostSound" src="almost.mp4"></audio>
+      <div class="reveal-item">
+        <button class="gal-item" type="button" data-type="video" data-src="video_1.mp4" data-poster="clip1-poster.jpg" data-title="От4Им: AWP Triple kill" data-meta="Inferno · 2026" aria-label="Открыть клип: От4Им, AWP Triple kill">
+          <img class="gal-thumb" src="clip1-poster.jpg" alt="" loading="lazy">
+          <video class="gal-preview" src="video_1.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
+          <span class="gal-badge">CLIP</span>
+          <span class="gal-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="gal-cap">
+            <b class="gal-moment">Triple Kill</b>
+            <span class="gal-name">От4Им</span>
+            <span class="gal-meta">Inferno · 2026</span>
+          </span>
+          <i class="gal-bar"></i>
+        </button>
+      </div>
+
+      <div class="reveal-item">
+        <button class="gal-item" type="button" data-type="video" data-src="video_2.mp4" data-poster="clip2-poster.jpg" data-title="Kiporiss: Quadro kill" data-meta="Dust II · 2026" aria-label="Открыть клип: Kiporiss, Quadro kill">
+          <img class="gal-thumb" src="clip2-poster.jpg" alt="" loading="lazy">
+          <video class="gal-preview" src="video_2.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
+          <span class="gal-badge">CLIP</span>
+          <span class="gal-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="gal-cap">
+            <b class="gal-moment">Quadro Kill</b>
+            <span class="gal-name">Kiporiss</span>
+            <span class="gal-meta">Dust II · 2026</span>
+          </span>
+          <i class="gal-bar"></i>
+        </button>
+      </div>
+
+      <div class="reveal-item">
+        <button class="gal-item" type="button" data-type="video" data-src="video_3.mp4" data-poster="clip3-poster.jpg" data-title="Hell7Staf: Ace" data-meta="Anubis · 2026" aria-label="Открыть клип: Hell7Staf, Ace">
+          <img class="gal-thumb" src="clip3-poster.jpg" alt="" loading="lazy">
+          <video class="gal-preview" src="video_3.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
+          <span class="gal-badge">CLIP</span>
+          <span class="gal-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="gal-cap">
+            <b class="gal-moment">Ace</b>
+            <span class="gal-name">Hell7Staf</span>
+            <span class="gal-meta">Anubis · 2026</span>
+          </span>
+          <i class="gal-bar"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="support">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">08 / Поддержка</span>
+      <h2>Поддержка</h2>
+      
+    </div>
+    <div class="support-grid reveal-group">
+      <div class="support-card reveal-item">
+        <div class="mini-label">Партнёрство</div>
+        <h3>Стать спонсором</h3>
+        <p>Поддержка команды и участие в развитии esports-бренда через события, медиа и продвижение.</p>
+        <a class="meta" href="https://t.me/boost/DLST_Esport" target="_blank" rel="noopener">Contact</a>
+      </div>
+      <div class="support-card reveal-item">
+        <div class="mini-label">Сообщество</div>
+        <h3>Следить за новостями</h3>
+        <p>Свежие анонсы, матчи, новости состава и результаты — в Telegram и Steam-группе команды.</p>
+        <a class="meta" href="https://t.me/DLST_Esport" target="_blank" rel="noopener">Official channels</a>
+      </div>
+      <div class="support-card reveal-item">
+        <div class="mini-label">Мерч</div>
+        <h3>Поддержать команду</h3>
+        <p>Поддержка клуба помогает развивать команду, инфраструктуру и участие в турнирах.</p>
+        <a class="meta" href="https://d1ldonsteam.github.io/DST-CASINO/" target="_blank" rel="noopener">Support us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    © 2026 D1LDONS TEAM. Все права защищены. · Дизайн и разработка: <strong>Hell7staf &amp; От4Им</strong>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" type="button" aria-label="Наверх">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+</button>
 
 <script>
-// ---------- Символы (CS2-тематика, нож — редкий) ----------
-const symbolPool = [
-    { emoji: "🔫", weight: 28 },
-    { emoji: "🎯", weight: 28 },
-    { emoji: "💣", weight: 22 },
-    { emoji: "☠️", weight: 17 },
-    { emoji: "🔪", weight: 5 }
-];
-const RARE_SYMBOL = "🔪";
-const allSymbols = symbolPool.map(s => s.emoji);
-const reels = ["r1", "r2", "r3"];
-const STRIP_LENGTH = 24;
-const SPIN_COST = 10;
-const BALANCE_KEY = "dstCasinoBalance";
-const START_BALANCE = 50;
-const CONFETTI_COLORS = ["#ffffff", "#f5f5f5", "#a3a3a3", "#737373"];
-
-let spinning = false;
-
-function loadBalance() {
+(function () {
+  var n = document.getElementById('clock');
+  if (!n) return;
+  function tick() {
     try {
-        const saved = localStorage.getItem(BALANCE_KEY);
-        if (saved === null) {
-            localStorage.setItem(BALANCE_KEY, START_BALANCE);
-            return START_BALANCE;
-        }
-        return parseInt(saved, 10) || 0;
-    } catch (e) {
-        return START_BALANCE;
-    }
-}
-
-function saveBalance(value) {
-    try { localStorage.setItem(BALANCE_KEY, value); } catch (e) {}
-}
-
-let balance = loadBalance();
-
-let stats = {
-    spins: 0,
-    wins: 0,
-    almost: 0,
-    symbolsSeen: new Set(),
-    achievements: new Set()
-};
-
-const spinSound = document.getElementById("spinSound");
-const winSound = document.getElementById("winSound");
-const loseSound = document.getElementById("loseSound");
-const almostSound = document.getElementById("almostSound");
-const machine = document.getElementById("machine");
-const slotEl = document.getElementById("slot");
-const resultEl = document.getElementById("result");
-const spinBtn = document.getElementById("spinBtn");
-const flashOverlay = document.getElementById("flashOverlay");
-const balanceEl = document.getElementById("balance");
-const topupLink = document.getElementById("topupLink");
-
-function stopAllSounds() {
-    [spinSound, winSound, loseSound, almostSound].forEach(s => {
-        s.pause();
-        s.currentTime = 0;
-    });
-}
-
-function weightedRandomSymbol() {
-    const total = symbolPool.reduce((sum, s) => sum + s.weight, 0);
-    let r = Math.random() * total;
-    for (const s of symbolPool) {
-        if (r < s.weight) return s.emoji;
-        r -= s.weight;
-    }
-    return symbolPool[0].emoji;
-}
-
-// Начальное заполнение барабанов до первого клика
-reels.forEach(id => {
-    const reel = document.getElementById(id);
-    reel.innerHTML = `<div class="symbol">${weightedRandomSymbol()}</div>`;
-});
-
-updateBalanceUI();
-
-// Синхронизация баланса с тапалкой (другая вкладка / возврат назад / возврат фокуса)
-function refreshBalance() {
-    if (spinning) return;
-    const fresh = loadBalance();
-    if (fresh !== balance) {
-        balance = fresh;
-        updateBalanceUI();
-    }
-}
-window.addEventListener("storage", e => { if (e.key === BALANCE_KEY) refreshBalance(); });
-window.addEventListener("pageshow", refreshBalance);
-window.addEventListener("focus", refreshBalance);
-document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshBalance(); });
-
-function buildAndAnimateReel(id, finalSymbol, index) {
-    const reelInner = document.getElementById(id);
-
-    const strip = [];
-    for (let i = 0; i < STRIP_LENGTH - 1; i++) strip.push(weightedRandomSymbol());
-    strip.push(finalSymbol);
-
-    reelInner.style.transition = "none";
-    reelInner.style.transform = "translateY(0)";
-    reelInner.innerHTML = strip.map(s => `<div class="symbol">${s}</div>`).join("");
-
-    // форсируем reflow, чтобы transition применился к новой прокрутке
-    void reelInner.offsetHeight;
-
-    const duration = 1200 + index * 450;
-    // проценты считаются от высоты ленты, поэтому размер барабана (адаптив) не важен
-    const finalOffsetPct = (STRIP_LENGTH - 1) / STRIP_LENGTH * 100;
-
-    requestAnimationFrame(() => {
-        reelInner.style.transition = `transform ${duration}ms cubic-bezier(0.12,0.85,0.28,1)`;
-        reelInner.style.transform = `translateY(-${finalOffsetPct}%)`;
-    });
-
-    return duration;
-}
-
-function spin() {
-    if (spinning) return;
-    balance = loadBalance();
-    updateBalanceUI();
-    if (balance < SPIN_COST) {
-        resultEl.textContent = "😬 Недостаточно D1LDOCOIN — иди тапай";
-        resultEl.className = "lose";
-        return;
-    }
-
-    spinning = true;
-    spinBtn.disabled = true;
-
-    balance -= SPIN_COST;
-    saveBalance(balance);
-    updateBalanceUI();
-
-    resultEl.textContent = "";
-    resultEl.className = "";
-
-    stopAllSounds();
-    if (spinSound.readyState >= 2) spinSound.play().catch(() => {});
-
-    stats.spins++;
-    updateStats();
-
-    const finals = [weightedRandomSymbol(), weightedRandomSymbol(), weightedRandomSymbol()];
-    let maxDuration = 0;
-    reels.forEach((id, index) => {
-        const d = buildAndAnimateReel(id, finals[index], index);
-        if (d > maxDuration) maxDuration = d;
-    });
-
-    setTimeout(() => {
-        checkResult(finals);
-        spinning = false;
-        spinBtn.disabled = balance < SPIN_COST;
-    }, maxDuration + 150);
-}
-
-function updateBalanceUI() {
-    balanceEl.textContent = balance;
-    const low = balance < SPIN_COST;
-    topupLink.classList.toggle("urgent", low);
-    spinBtn.disabled = spinning ? true : low;
-}
-
-function flashScreen(kind) {
-    flashOverlay.className = "flash-overlay " + kind + " active";
-    setTimeout(() => { flashOverlay.className = "flash-overlay " + kind; }, 160);
-}
-
-function launchConfetti(count, colors) {
-    for (let i = 0; i < count; i++) {
-        const piece = document.createElement("div");
-        piece.className = "confetti-piece";
-        piece.style.left = Math.random() * 100 + "vw";
-        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-        piece.style.animationDuration = (1.6 + Math.random() * 1.2) + "s";
-        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
-        document.body.appendChild(piece);
-        setTimeout(() => piece.remove(), 3000);
-    }
-}
-
-function changeBalance(delta, label) {
-    balance = loadBalance() + delta;
-    if (balance < 0) balance = 0;
-    saveBalance(balance);
-    updateBalanceUI();
-
-    // Всплывающий текст +50 / -5 / +1000 (стили в style.css)
-    const sign = delta > 0 ? "+" : "";
-    const popup = document.createElement("div");
-    popup.className = "balance-popup " + (delta > 0 ? "plus" : "minus");
-    popup.textContent = sign + delta + " D1LDOCOIN";
-    document.body.appendChild(popup);
-    setTimeout(() => popup.remove(), 1400);
-}
-
-function checkResult(finals) {
-    const [r1, r2, r3] = finals;
-    spinSound.pause();
-
-    finals.forEach(f => stats.symbolsSeen.add(f));
-
-    if (r1 === r2 && r2 === r3) {
-        stats.wins++;
-        const isRare = r1 === RARE_SYMBOL;
-
-        if (isRare) {
-            changeBalance(1000, "РЕДКИЙ ДЖЕКПОТ");
-            resultEl.textContent = "🔪 РЕДКИЙ ДЖЕКПОТ! +1000 🪙";
-            resultEl.className = "knife-jackpot";
-            flashScreen("knife");
-            machine.classList.add("shake");
-            setTimeout(() => machine.classList.remove("shake"), 500);
-            launchConfetti(70, CONFETTI_COLORS);
-            if (winSound.readyState >= 2) winSound.play();
-        } else {
-            changeBalance(50, "ДЖЕКПОТ");
-            resultEl.textContent = "🎉 ДЖЕКПОТ! +50 🪙";
-            resultEl.className = "jackpot";
-            flashScreen("jackpot");
-            launchConfetti(40, CONFETTI_COLORS);
-            if (winSound.readyState >= 2) winSound.play();
-        }
-    } else if (r1 === r2 || r2 === r3 || r1 === r3) {
-        stats.almost++;
-        resultEl.textContent = "👍 Блять!";
-        resultEl.className = "almost";
-        slotEl.classList.add("almost-flash");
-        setTimeout(() => slotEl.classList.remove("almost-flash"), 800);
-        if (almostSound.readyState >= 2) almostSound.play();
-    } else {
-        changeBalance(-5, "ДОДЕП");
-        resultEl.textContent = "😢 Требуется додеп  -5 🪙";
-        resultEl.className = "lose";
-        if (loseSound.readyState >= 2) loseSound.play();
-    }
-
-    updateStats();
-    checkAchievements();
-}
-
-function updateStats() {
-    document.getElementById("spins").textContent = stats.spins;
-    document.getElementById("wins").textContent = stats.wins;
-    document.getElementById("almost").textContent = stats.almost;
-}
-
-function unlock(name) {
-    if (!stats.achievements.has(name)) {
-        stats.achievements.add(name);
-        const div = document.createElement("div");
-        div.className = "achievement-badge";
-        div.textContent = "🏆 " + name;
-        document.getElementById("achievements").appendChild(div);
-    }
-}
-
-function checkAchievements() {
-    if (stats.spins >= 10) unlock("Сделать 10 прокруток");
-    if (stats.spins >= 50) unlock("Игроман 😄 (50 прокруток)");
-    if (stats.wins >= 1) unlock("еееесть блять (1 победа)");
-    if (stats.wins >= 5) unlock("Везунчик!");
-    if (stats.almost >= 5) unlock("Почти-ДОДЕП...");
-    if (stats.symbolsSeen.size === allSymbols.length) unlock("Коллекционер арсенала 🔫");
-    if (stats.almost >= 1000) unlock("Король додэпа (больше 1000 додепов)");
-    if (stats.wins >= 67) unlock("ъэ 67 хэхъэ  (победа побед👀)");
-    if (stats.spins >= 1) unlock("Начало лудоприключения");
-    if (stats.spins >= 10000) unlock("Квартира админа в центре москвы♿ (10000 прокруток)");
-    if (stats.spins >= 1) unlock("Ебать ты пень🪵 (случайности не случайны)");
-}
+      n.textContent = new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Moscow' }).format(new Date());
+    } catch (e) { n.textContent = '--:--'; }
+  }
+  tick();
+  setInterval(tick, 15000);
+})();
 </script>
-
+<script>
+/* Размытый фон появляется плавно по мере прокрутки первого экрана */
+(function () {
+  var root = document.querySelector('.bg-blur') || document.documentElement, ticking = false;
+  function update() {
+    ticking = false;
+    var s = Math.min(1, Math.max(0, window.scrollY / (window.innerHeight * 0.9)));
+    root.style.setProperty('--s', s.toFixed(3));
+  }
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+</script>
+<script src="pause.js?v=1.2"></script>
+<script src="plasma.js?v=2.6"></script>
+<script src="app.js?v=2.6"></script>
+<script src="effects.js?v=2.6"></script>
 </body>
 </html>
